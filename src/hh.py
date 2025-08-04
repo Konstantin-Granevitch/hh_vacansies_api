@@ -1,11 +1,20 @@
 import requests
 
+from abc import ABC, abstractmethod
+
+
+class Parser(ABC):
+    @abstractmethod
+    def __init__(self):
+        pass
+
+    @abstractmethod
+    def load_vacancies(self):
+        pass
+
 
 class HH(Parser):
-    """
-    Класс для работы с API HeadHunter
-    Класс Parser является родительским классом, который вам необходимо реализовать
-    """
+    """Класс для работы с API HeadHunter"""
 
     def __init__(self, file_worker):
         self.url = "https://api.hh.ru/vacancies"
