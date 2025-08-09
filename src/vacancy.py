@@ -46,7 +46,7 @@ class Vacancy:
         if new_salary == 0 or new_salary < 0 or new_salary == "" or new_salary is None:
             print("цена не должна быть равна или меньше 0")
         elif not (str(new_salary).isdigit()):
-            print("цена не должна быть числовым значением")
+            print("цена должна быть числовым значением")
         else:
             self.__salary = new_salary
 

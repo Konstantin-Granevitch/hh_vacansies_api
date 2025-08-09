@@ -4,6 +4,8 @@ from abc import ABC, abstractmethod
 
 
 class Parser(ABC):
+    """абстрактный класс для создания классов с API"""
+
     @abstractmethod
     def __init__(self):
         pass
@@ -36,5 +38,4 @@ class HH(Parser):
 if __name__ == "__main__":
     h1 = HH
     h1.load_vacancies = "developer"
-    print(str(h1))
-    req = requests.get("https://api.hh.ru/vacancies", User-Agent": "HH-User-Agent, "text": "", "page": 0, "per_page": 100")
+    print(h1())
