@@ -1,4 +1,8 @@
+import json
+
 from abc import ABC, abstractmethod
+from json import JSONDecodeError
+
 from config import BASE_PATH
 
 
@@ -19,21 +23,25 @@ class Tools(ABC):
 class Json_Tool(Tools):
     """класс для работы с файлами"""
 
+    data: str
     file_name: str
-    mode: str
 
-    def __init__(self, file_name, mode="r"):
-        self.file_name = f"{BASE_PATH}/data/{file_name}"
-        self.mode = mode
+    def __init__(self, data, file_name):
+        self.data = data
+        self.file_name = file_name
 
-    def __enter__(self):
-        self.f = open(self.file_name, self.mode)
-        return self.f
-
-    def __exit__(self, exc_type, exc_val, exc_tb):
-        self.f.close()
+    def json_read(self, file_name):
+        try:
+            with open(f"{BASE_PATH}/data/{self.file_name}") as f:
+                file_data = json.load(f)
+        except FileNotFoundError as e:
+            print(e)
+            file_data = {}
+        except JSONDecodeError as e:
+            print(e)
+            file_data = {}
+        return file_data
 
 
 if __name__ == "__main__":
-    with Json_Tool("vacancies.json", "r") as f:
-        print(f.read())
+    print(Json_Tool.json_read(file_name="vacancies.json"))
