@@ -11,7 +11,7 @@ class Parser(ABC):
         pass
 
     @abstractmethod
-    def load_vacancies(self):
+    def load_vacancies(self, keyword):
         pass
 
 
