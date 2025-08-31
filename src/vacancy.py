@@ -8,12 +8,34 @@ class Vacancy:
     requirement: str
 
     def __init__(self, name, responsibility, salary, requirement):
-        self.name = name
-        self.responsibility = responsibility
+        self.name = self._valid_name(name)
+        self.responsibility = self._valid_respons(responsibility)
         if salary == "" or salary is None or not (str(salary).isdigit()):
             salary = 0
         self.__salary = salary
-        self.requirement = requirement
+        self.requirement = self._valid_requir(requirement)
+
+    # валидация данных перед созданием экземпляра класса Vacancy
+    def _valid_name(self, name) -> str:
+        """проверка атрибута NAME"""
+
+        if not isinstance(name, str):
+            raise ValueError("название вакансии должно быть строкой!")
+        return name
+
+    def _valid_respons(self, responsibility) -> str:
+        """проверка атрибута RESPONSIBILITY"""
+
+        if not isinstance(responsibility, str):
+            raise ValueError("ответственность в вакансии должна быть строкой!")
+        return responsibility
+
+    def _valid_requir(self, requirement) -> str:
+        """проверка атрибута REQUIREMENT"""
+
+        if not isinstance(requirement, str):
+            raise ValueError("требования в вакансии должны быть строкой!")
+        return requirement
 
     @classmethod
     def create_vacancy(cls, vacancy: dict):
@@ -21,7 +43,6 @@ class Vacancy:
 
         salary = vacancy["salary"]
         salary_from = salary["from"] if salary and "from" in salary else 0
-
         obj = cls(
             vacancy["name"],
             vacancy["snippet"]["responsibility"],
@@ -31,7 +52,7 @@ class Vacancy:
 
         return obj
 
-    def __str__(self):
+    def __str__(self) -> str:
         """метод строкового представления объекта"""
 
         return f"вакансия - {self.name}, зарплата = {self.salary}, ответственность: {self.responsibility}"
@@ -42,7 +63,7 @@ class Vacancy:
         return self.__salary
 
     @salary.setter
-    def salary(self, new_salary: int):
+    def salary(self, new_salary: float):
         if new_salary == 0 or new_salary < 0 or new_salary == "" or new_salary is None:
             print("цена не должна быть равна или меньше 0")
         elif not (str(new_salary).isdigit()):
@@ -51,22 +72,22 @@ class Vacancy:
             self.__salary = new_salary
 
     # набор методов для сравнения вакансий по зарплате
-    def __lt__(self, other):
+    def __lt__(self, other) -> bool:
         return self.__salary < other.__salary
 
-    def __le__(self, other):
+    def __le__(self, other) -> bool:
         return self.__salary <= other.__salary
 
-    def __gt__(self, other):
+    def __gt__(self, other) -> bool:
         return self.__salary > other.__salary
 
-    def __ge__(self, other):
+    def __ge__(self, other) -> bool:
         return self.__salary >= other.__salary
 
-    def __eq__(self, other):
+    def __eq__(self, other) -> bool:
         return self.__salary == other.__salary
 
-    def __ne__(self, other):
+    def __ne__(self, other) -> bool:
         return self.__salary != other.__salary
 
 
