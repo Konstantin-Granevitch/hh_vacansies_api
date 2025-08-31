@@ -136,68 +136,74 @@ if __name__ == "__main__":
     print(vacancy1)
     print(vacancy3)
 
-    vacancy1.salary = 100000
+    vacancy1.salary = 100000  # изменение з/п в вакансии
 
     print(vacancy1.salary, vacancy2.salary)
-    print(vacancy1 >= vacancy2)
+    print(vacancy1 >= vacancy2)  # сравнение вакансий по з/п
 
-    vac4 = {'accept_incomplete_resumes': False,
-            'accept_temporary': False,
-            'address': None,
-            'adv_context': None,
-            'adv_response_url': None,
-            'alternate_url': 'https://hh.ru/vacancy/93209001',
-            'apply_alternate_url': 'https://hh.ru/applicant/vacancy_response?vacancyId=93209001',
-            'archived': False,
-            'area': {'id': '2759',
-                     'name': 'Ташкент',
-                     'url': 'https://api.hh.ru/areas/2759'},
-            'contacts': None,
-            'created_at': '2024-02-14T12:32:06+0300',
-            'department': None,
-            'employer': {'accredited_it_employer': False,
-                         'alternate_url': 'https://hh.ru/employer/4621904',
-                         'id': '4621904',
-                         'logo_urls': {'240': 'https://hhcdn.ru/employer-logo/3387666.png',
-                                       '90': 'https://hhcdn.ru/employer-logo/3387665.png',
-                                       'original': 'https://hhcdn.ru/employer-logo-original/736672.png'},
-                         'name': '«MY FREIGHTER» LLC',
-                         'trusted': True,
-                         'url': 'https://api.hh.ru/employers/4621904',
-                         'vacancies_url': 'https://api.hh.ru/vacancies?employer_id=4621904'},
-            'employment': {'id': 'full', 'name': 'Полная занятость'},
-            'experience': {'id': 'noExperience', 'name': 'Нет опыта'},
-            'has_test': False,
-            'id': '93209001',
-            'insider_interview': None,
-            'is_adv_vacancy': False,
-            'name': 'Бортпроводник',
-            'premium': False,
-            'professional_roles': [{'id': '159', 'name': 'Бортпроводник'}],
-            'published_at': '2024-02-14T12:32:06+0300',
-            'relations': [],
-            'response_letter_required': False,
-            'response_url': None,
-            'salary': None,
-            'schedule': {'id': 'fullDay', 'name': 'Полный день'},
-            'show_logo_in_search': None,
-            'snippet': {'requirement': 'Образование: среднее полное (11 '
-                                       'классов), среднее специальное, высшее. '
-                                       'Обязательное владение узбекским, '
-                                       'русским и английским языками. '
-                                       'Готовность работать согласно графику '
-                                       'полетов. ',
-                        'responsibility': 'Обеспечение безопасности на борту. '
-                                          'Встреча и размещение пассажиров на '
-                                          'борту. Инструктаж перед взлетом. '
-                                          'Организация питания пассажиров во '
-                                          'время полета. '},
-            'sort_point_distance': None,
-            'type': {'id': 'open', 'name': 'Открытая'},
-            'url': 'https://api.hh.ru/vacancies/93209001?host=hh.ru',
-            'working_days': [],
-            'working_time_intervals': [],
-            'working_time_modes': []}
+    vac4 = {
+        "accept_incomplete_resumes": False,
+        "accept_temporary": False,
+        "address": None,
+        "adv_context": None,
+        "adv_response_url": None,
+        "alternate_url": "https://hh.ru/vacancy/93209001",
+        "apply_alternate_url": "https://hh.ru/applicant/vacancy_response?vacancyId=93209001",
+        "archived": False,
+        "area": {"id": "2759", "name": "Ташкент", "url": "https://api.hh.ru/areas/2759"},
+        "contacts": None,
+        "created_at": "2024-02-14T12:32:06+0300",
+        "department": None,
+        "employer": {
+            "accredited_it_employer": False,
+            "alternate_url": "https://hh.ru/employer/4621904",
+            "id": "4621904",
+            "logo_urls": {
+                "240": "https://hhcdn.ru/employer-logo/3387666.png",
+                "90": "https://hhcdn.ru/employer-logo/3387665.png",
+                "original": "https://hhcdn.ru/employer-logo-original/736672.png",
+            },
+            "name": "«MY FREIGHTER» LLC",
+            "trusted": True,
+            "url": "https://api.hh.ru/employers/4621904",
+            "vacancies_url": "https://api.hh.ru/vacancies?employer_id=4621904",
+        },
+        "employment": {"id": "full", "name": "Полная занятость"},
+        "experience": {"id": "noExperience", "name": "Нет опыта"},
+        "has_test": False,
+        "id": "93209001",
+        "insider_interview": None,
+        "is_adv_vacancy": False,
+        "name": "Бортпроводник",
+        "premium": False,
+        "professional_roles": [{"id": "159", "name": "Бортпроводник"}],
+        "published_at": "2024-02-14T12:32:06+0300",
+        "relations": [],
+        "response_letter_required": False,
+        "response_url": None,
+        "salary": None,
+        "schedule": {"id": "fullDay", "name": "Полный день"},
+        "show_logo_in_search": None,
+        "snippet": {
+            "requirement": "Образование: среднее полное (11 "
+            "классов), среднее специальное, высшее. "
+            "Обязательное владение узбекским, "
+            "русским и английским языками. "
+            "Готовность работать согласно графику "
+            "полетов. ",
+            "responsibility": "Обеспечение безопасности на борту. "
+            "Встреча и размещение пассажиров на "
+            "борту. Инструктаж перед взлетом. "
+            "Организация питания пассажиров во "
+            "время полета. ",
+        },
+        "sort_point_distance": None,
+        "type": {"id": "open", "name": "Открытая"},
+        "url": "https://api.hh.ru/vacancies/93209001?host=hh.ru",
+        "working_days": [],
+        "working_time_intervals": [],
+        "working_time_modes": [],
+    }
 
     vacancy4 = Vacancy.create_vacancy(vac4)
     print(vacancy4)

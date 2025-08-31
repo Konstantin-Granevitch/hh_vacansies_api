@@ -1,7 +1,7 @@
-import requests
-
 from abc import ABC, abstractmethod
 from pprint import pprint
+
+import requests
 
 
 class Parser(ABC):
@@ -45,10 +45,7 @@ class HH(Parser):
         """
 
         # Формируем параметры для запроса
-        self.params = {
-            "text": keyword,
-            "per_page": per_page
-        }
+        self.params = {"text": keyword, "per_page": per_page}
 
         # Запрос на получение вакансий
         response = self._connect()

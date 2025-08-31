@@ -1,7 +1,6 @@
 import json
-
+import os
 from abc import ABC, abstractmethod
-from src.vacancy import Vacancy
 from json import JSONDecodeError
 from typing import Any
 
@@ -12,69 +11,102 @@ class Tools(ABC):
     """абстрактный класс для классов работающих с файлами"""
 
     @abstractmethod
-    def read_file(self):
+    def get_data(self):
         pass
 
     @abstractmethod
-    def write_file(self, data):
+    def add_data(self, data):
         pass
 
     @abstractmethod
-    def append_file(self, data):
+    def delete_data(self, data):
         pass
 
 
-class Json_Tool(Tools):
-    """класс для работы с json-файлами"""
+class JSON_Tool(Tools):
+    """класс для работы с JSON файлами"""
 
-    file_name: str
+    filename: str
 
-    def __init__(self, file_name):
-        self.__file_name = file_name
+    def __init__(self, filename="user_file.json"):
+        self.__filename = f"{BASE_PATH}/data/{filename}"  # Приватный атрибут для имени файла
 
-    def read_file(self) -> list:
-        """метод чтения файла"""
+    def get_data(self) -> Any:
+        """метод получения данных из JSON-файла."""
 
-        result = []
-
+        if not os.path.exists(self.__filename):
+            return []  # Возвращает пустой список, если файл не существует
         try:
-            with open(f"{BASE_PATH}/data/{self.__file_name}", encoding='utf-8') as f:
-                json_data = json.load(f)
-            for vacancy in json_data["items"][0:]:
-                result.append(Vacancy.create_vacancy(vacancy))
-        except FileNotFoundError:
-            print("ошибка файл не найден, проверьте путь и имя файла")
-        except JSONDecodeError:
-            print("файл не читаем")
+            with open(self.__filename, encoding="utf-8") as f:
+                return json.load(f)  # Загружает и возвращает данные из файла
+        except JSONDecodeError as e:
+            return []  # Возвращает пустой список, если файл не читается
 
-        return result
+    def add_data(self, data: dict):
+        """метод записи данных в JSON-файл, предотвращая дублирование."""
 
-    def write_file(self, data: Any) -> str:
-        """метод записи файла"""
+        existing_data = self.get_data()  # Получаем существующие данные
 
-        try:
-            with open(f"{BASE_PATH}/data/{self.__file_name}", "w", encoding='utf-8') as f:
-                json.dump(data, f)
-        except JSONDecodeError:
-            print("ошибка в кодировке данных, проверьте ошибки")
+        if data not in existing_data:  # Проверка на дублирование
+            existing_data.append(data)  # Добавляем новые данные
+            with open(self.__filename, "w", encoding="utf-8") as f:
+                json.dump(existing_data, f, ensure_ascii=False, indent=4)  # Сохраняем обновленные данные в файл
 
-    def append_file(self, data: Any) -> str:
-        """метод добавления записи в файл"""
-        try:
-            with open(f"{BASE_PATH}/data/{self.__file_name}", "a", encoding='utf-8') as f:
-                json.dump(data, f)
-        except JSONDecodeError:
-            print("ошибка в кодировке данных, проверьте ошибки")
+    def delete_data(self, data: dict):
+        """метод удаления данных из JSON-файла, если они существуют."""
 
-    def __delitem__(self, key):
-        """метод для удаления информации в классе по ключу"""
-        pass
-        #if key in self
+        existing_data = self.get_data()  # Получаем существующие данные
+
+        if data in existing_data:  # Проверяем, есть ли данные для удаления
+            existing_data.remove(data)  # Удаляем данные
+            with open(self.__filename, "w", encoding="utf-8") as f:
+                json.dump(existing_data, f, ensure_ascii=False, indent=4)  # Сохраняем обновленные данные в файл
 
 
 if __name__ == "__main__":
-    j_file = Json_Tool("vacancies.json")
-    list_vac = j_file.read_file()
-    for vac in list_vac:
-        print(vac)
-    # j_file.write_file("user_file.json")
+    handler = JSON_Tool()
+    vacancy_data = {
+        "employment": {"id": "full", "name": "Полная занятость"},
+        "experience": {"id": "between1And3", "name": "От 1 года до 3 лет"},
+        "has_test": False,
+        "id": "93161709",
+        "insider_interview": None,
+        "is_adv_vacancy": False,
+        "name": "Менеджер по работе с клиентами (МЕРКАТОР)",
+        "premium": False,
+        "professional_roles": [{"id": "70", "name": "Менеджер по продажам, менеджер по " "работе с клиентами"}],
+        "published_at": "2024-02-13T17:06:04+0300",
+        "relations": [],
+        "response_letter_required": False,
+        "response_url": None,
+        "salary": {"currency": "RUR", "from": 2280000, "gross": True, "to": None},
+        "schedule": {"id": "fullDay", "name": "Полный день"},
+        "show_logo_in_search": None,
+        "snippet": {
+            "requirement": "Опыт в продажах или с клиентами. " "Грамотная речь. Активность. " "Коммуникабельность.",
+            "responsibility": "Работа с клиентами. Контроль "
+            "остатков инструмента на складе. "
+            "Работа с дебиторской "
+            "задолженностью. Отчетность в "
+            "установленной форме (1С, Битрикс "
+            "24).",
+        },
+    }
+
+    # Добавление вакансии
+    print("Добавление вакансии...")
+    handler.add_data(vacancy_data)
+
+    # Получение данных из файла
+    print("Получение данных из файла...")
+    data = handler.get_data()
+    print(data)
+
+    # Удаление вакансии
+    print("Удаление вакансии...")
+    handler.delete_data(vacancy_data)
+
+    # Получение данных из файла после удаления
+    print("Получение данных после удаления...")
+    data_after_deletion = handler.get_data()
+    print(data_after_deletion)
