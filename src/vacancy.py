@@ -25,12 +25,9 @@ class Vacancy:
         obj = cls(
             vacancy["name"],
             vacancy["snippet"]["responsibility"],
-            salary or salary_from,
+            salary_from or salary,
             vacancy["snippet"]["requirement"],
         )
-
-        # if vacancy["salary"]["from"] is None or vacancy["salary"]["from"] == "":  # проверка на отсутствие з/п
-        #     obj.__salary = 0
 
         return obj
 
@@ -41,7 +38,7 @@ class Vacancy:
 
     # сеттер и геттер для просмотра и изменения приватного метода с зарплатой
     @property
-    def salary(self):
+    def salary(self) -> float:
         return self.__salary
 
     @salary.setter

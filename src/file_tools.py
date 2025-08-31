@@ -30,16 +30,15 @@ class Json_Tool(Tools):
     file_name: str
 
     def __init__(self, file_name):
-        self.file_name = file_name
+        self.__file_name = file_name
 
-    def read_file(self):
+    def read_file(self) -> list:
         """метод чтения файла"""
 
         result = []
-        list_vacancies = []
 
         try:
-            with open(f"{BASE_PATH}/data/{self.file_name}", encoding='utf-8') as f:
+            with open(f"{BASE_PATH}/data/{self.__file_name}", encoding='utf-8') as f:
                 json_data = json.load(f)
             for vacancy in json_data["items"][0:]:
                 result.append(Vacancy.create_vacancy(vacancy))
@@ -50,19 +49,19 @@ class Json_Tool(Tools):
 
         return result
 
-    def write_file(self, data: Any):
+    def write_file(self, data: Any) -> str:
         """метод записи файла"""
 
         try:
-            with open(f"{BASE_PATH}/data/{self.file_name}", "w", encoding='utf-8') as f:
+            with open(f"{BASE_PATH}/data/{self.__file_name}", "w", encoding='utf-8') as f:
                 json.dump(data, f)
         except JSONDecodeError:
             print("ошибка в кодировке данных, проверьте ошибки")
 
-    def append_file(self, data: Any):
-        """метод записи файла"""
+    def append_file(self, data: Any) -> str:
+        """метод добавления записи в файл"""
         try:
-            with open(f"{BASE_PATH}/data/{self.file_name}", "a", encoding='utf-8') as f:
+            with open(f"{BASE_PATH}/data/{self.__file_name}", "a", encoding='utf-8') as f:
                 json.dump(data, f)
         except JSONDecodeError:
             print("ошибка в кодировке данных, проверьте ошибки")
@@ -76,4 +75,6 @@ class Json_Tool(Tools):
 if __name__ == "__main__":
     j_file = Json_Tool("vacancies.json")
     list_vac = j_file.read_file()
-    print(list_vac)
+    for vac in list_vac:
+        print(vac)
+    # j_file.write_file("user_file.json")
