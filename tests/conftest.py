@@ -1,5 +1,7 @@
 import pytest
 
+from src.vacancy import Vacancy
+
 
 @pytest.fixture(scope="module")
 def vacancy1():
@@ -63,3 +65,14 @@ def vacancy2():
             "монтаж на устье скважины.",
         },
     }
+
+
+@pytest.fixture(scope="module")
+def list_vacancies():
+    vac1 = Vacancy("name1", "resp1", 1000, "req1")
+    vac2 = Vacancy("name2", "resp2", 2000, "req2")
+    vac3 = Vacancy("name3", "resp3", 3000, "req3")
+    vac4 = Vacancy("name4", "resp4", 2000, "req4")
+    vac5 = Vacancy("name5", "resp5", 4000, "req5")
+
+    return [vac1, vac2, vac3, vac4, vac5]
