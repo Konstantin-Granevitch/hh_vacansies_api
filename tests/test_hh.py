@@ -1,7 +1,7 @@
 import unittest
+from unittest.mock import MagicMock, patch
 
 from src.hh import HH
-from unittest.mock import patch, MagicMock
 
 
 class TestHH(unittest.TestCase):
@@ -19,10 +19,7 @@ class TestHH(unittest.TestCase):
         response = hh._connect()
 
         mock_get.assert_called_once_with(
-            "https://api.hh.ru/vacancies",
-            headers = {"User-Agent": "HH-User-Agent"},
-            params={"text": "", "per_page": 1}
-
+            "https://api.hh.ru/vacancies", headers={"User-Agent": "HH-User-Agent"}, params={"text": "", "per_page": 1}
         )
 
         self.assertEqual(response.status_code, 200)
@@ -48,16 +45,12 @@ class TestHH(unittest.TestCase):
         mock_response = MagicMock()
         mock_response.status_code = 200
         mock_response.json.return_value = {
-            "items": [
-                {"id": "1", "name": "python developer"},
-                {"id": "2", "name": "java developer"}
-            ]
+            "items": [{"id": "1", "name": "python developer"}, {"id": "2", "name": "java developer"}]
         }
         mock_get.return_value = mock_response
         hh = HH()
         hh.get_vacancies("developer", per_page=2)
 
-        self.assertEqual(hh.vacancies, [
-                {"id": "1", "name": "python developer"},
-                {"id": "2", "name": "java developer"}
-            ])
+        self.assertEqual(
+            hh.vacancies, [{"id": "1", "name": "python developer"}, {"id": "2", "name": "java developer"}]
+        )

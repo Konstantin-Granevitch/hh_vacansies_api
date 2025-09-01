@@ -2,6 +2,7 @@ import json
 import os
 from abc import ABC, abstractmethod
 from json import JSONDecodeError
+from pprint import pprint
 from typing import Any
 
 from config import BASE_PATH
@@ -64,49 +65,50 @@ class JSON_Tool(Tools):
 
 
 if __name__ == "__main__":
-    handler = JSON_Tool()
-    vacancy_data = {
-        "employment": {"id": "full", "name": "Полная занятость"},
-        "experience": {"id": "between1And3", "name": "От 1 года до 3 лет"},
-        "has_test": False,
-        "id": "93161709",
-        "insider_interview": None,
-        "is_adv_vacancy": False,
-        "name": "Менеджер по работе с клиентами (МЕРКАТОР)",
-        "premium": False,
-        "professional_roles": [{"id": "70", "name": "Менеджер по продажам, менеджер по " "работе с клиентами"}],
-        "published_at": "2024-02-13T17:06:04+0300",
-        "relations": [],
-        "response_letter_required": False,
-        "response_url": None,
-        "salary": {"currency": "RUR", "from": 2280000, "gross": True, "to": None},
-        "schedule": {"id": "fullDay", "name": "Полный день"},
-        "show_logo_in_search": None,
-        "snippet": {
-            "requirement": "Опыт в продажах или с клиентами. " "Грамотная речь. Активность. " "Коммуникабельность.",
-            "responsibility": "Работа с клиентами. Контроль "
-            "остатков инструмента на складе. "
-            "Работа с дебиторской "
-            "задолженностью. Отчетность в "
-            "установленной форме (1С, Битрикс "
-            "24).",
-        },
-    }
-
-    # Добавление вакансии
-    print("Добавление вакансии...")
-    handler.add_data(vacancy_data)
-
-    # Получение данных из файла
-    print("Получение данных из файла...")
-    data = handler.get_data()
-    print(data)
-
-    # Удаление вакансии
-    print("Удаление вакансии...")
-    handler.delete_data(vacancy_data)
-
-    # Получение данных из файла после удаления
-    print("Получение данных после удаления...")
-    data_after_deletion = handler.get_data()
-    print(data_after_deletion)
+    # handler = JSON_Tool()
+    # vacancy_data = {
+    #     "employment": {"id": "full", "name": "Полная занятость"},
+    #     "experience": {"id": "between1And3", "name": "От 1 года до 3 лет"},
+    #     "has_test": False,
+    #     "id": "93161709",
+    #     "insider_interview": None,
+    #     "is_adv_vacancy": False,
+    #     "name": "Менеджер по работе с клиентами (МЕРКАТОР)",
+    #     "premium": False,
+    #     "professional_roles": [{"id": "70", "name": "Менеджер по продажам, менеджер по " "работе с клиентами"}],
+    #     "published_at": "2024-02-13T17:06:04+0300",
+    #     "relations": [],
+    #     "response_letter_required": False,
+    #     "response_url": None,
+    #     "salary": {"currency": "RUR", "from": 2280000, "gross": True, "to": None},
+    #     "schedule": {"id": "fullDay", "name": "Полный день"},
+    #     "show_logo_in_search": None,
+    #     "snippet": {
+    #         "requirement": "Опыт в продажах или с клиентами. " "Грамотная речь. Активность. " "Коммуникабельность.",
+    #         "responsibility": "Работа с клиентами. Контроль "
+    #         "остатков инструмента на складе. "
+    #         "Работа с дебиторской "
+    #         "задолженностью. Отчетность в "
+    #         "установленной форме (1С, Битрикс "
+    #         "24).",
+    #     },
+    # }
+    #
+    # # Добавление вакансии
+    # print("Добавление вакансии...")
+    # handler.add_data(vacancy_data)
+    #
+    # # Получение данных из файла
+    # print("Получение данных из файла...")
+    # data = handler.get_data()
+    # print(data)
+    #
+    # # Удаление вакансии
+    # print("Удаление вакансии...")
+    # handler.delete_data(vacancy_data)
+    #
+    # # Получение данных из файла после удаления
+    # print("Получение данных после удаления...")
+    # data_after_deletion = handler.get_data()
+    # print(data_after_deletion)
+    pprint(JSON_Tool("vacancies.json").get_data())

@@ -58,5 +58,5 @@ class HH(Parser):
 
 if __name__ == "__main__":
     client = HH()
-    client.get_vacancies("электрик")
+    client.get_vacancies("python")
     pprint(client.vacancies)
