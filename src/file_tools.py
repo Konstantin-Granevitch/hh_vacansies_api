@@ -39,7 +39,7 @@ class JSON_Tool(Tools):
         try:
             with open(self.__filename, encoding="utf-8") as f:
                 return json.load(f)  # Загружает и возвращает данные из файла
-        except JSONDecodeError as e:
+        except JSONDecodeError:
             return []  # Возвращает пустой список, если файл не читается
 
     def add_data(self, data: dict):
