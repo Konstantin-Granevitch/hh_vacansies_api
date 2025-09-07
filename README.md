@@ -7,7 +7,7 @@
 ## Установка:
 
 Клонируйте репозиторий:
-```https://github.com/Konstantin-Granevitch/Course_work_4```
+```https://github.com/Konstantin-Granevitch/hh_vacansies_api```
 
 ## Тестирование:
 
